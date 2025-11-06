@@ -2,6 +2,7 @@
 
 ## Estructura de carpetas
 
+```txt
 CHEFYA/
 ├─ app/                 # Código de la API (FastAPI)
 │  ├─ main.py           # Punto de entrada de la aplicación
@@ -18,7 +19,7 @@ CHEFYA/
 ├─ .gitignore           # Archivos ignorados por git
 ├─ docker-compose.yml   # Orquestación de servicios (API + MongoDB)
 └─ README.md            # Documentación del proyecto
-
+```
 
 #### Por el momento solo clona el proyecto y prueba con:
 
