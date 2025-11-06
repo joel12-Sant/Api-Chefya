@@ -62,7 +62,7 @@ db.createCollection("restaurantes", {
           bsonType: "object",
           required: ["promedio","conteo"],
           properties: {
-            promedio: { bsonType: "double" }
+            promedio: { bsonType: "double" },
             conteo: { bsonType: "int" }
           }
         },

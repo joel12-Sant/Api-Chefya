@@ -1,7 +1,7 @@
 services:
   mongodb:
     image: mongo:latest
-    container_name: mongo
+    container_name: mongodb
     restart: always
     ports:
       - "27017:27017"
@@ -9,5 +9,29 @@ services:
       - ./mongo_data:/data/db
       - ./mongodb:/docker-entrypoint-initdb.d
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "admin", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 11
+      start_period: 30s
+
+  api:
+    build: ./app
+    container_name: chefya_api
+    restart: unless-stopped
+    volumes:
+      #Esta parte la debemos de modificar cuando lancemos a producción
+      #solo la comente para pruebas
+      #- ./app/data:/app/data
+      - ./app:/app
+    env_file:
+      - ./.env
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    ports:
+      - "${API_PORT:-8000}:${API_PORT:-8000}"
+    command: uvicorn main:app --host ${API_HOST:-0.0.0.0} --port ${API_PORT:-8000} --reload

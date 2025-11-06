@@ -1,0 +1,10 @@
+# para fastapi
+fastapi
+uvicorn[standard]
+
+# para base de datos
+motor
+pymongo
+
+# para cargar variables del .env
+python-dotenv

@@ -1,2 +1,8 @@
+
 mongo_data/
+
+#no se sube
 .env
+
+#Solamete lo tenemos durante pruebas
+app/__pycache__/
